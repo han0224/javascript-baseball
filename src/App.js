@@ -1,10 +1,6 @@
 const { Console } = require("@woowacourse/mission-utils");
 const BaseballGame = require("./BaseballGame");
-const {
-  GAME_STATE_MESSAGE,
-  GAME_RESULT_MESSAGE,
-  ERROR_MESSAGE,
-} = require("./Constants/Message");
+const { GAME_STATE_MESSAGE, ERROR_MESSAGE } = require("./Constants/Message");
 const InputView = require("./InputView");
 const MakeBaseball = require("./MakeBaseball");
 const runGenerator = require("./RunGenerator");
@@ -17,9 +13,9 @@ class App {
 
   play() {
     Console.print(GAME_STATE_MESSAGE.START);
-    runGenerator(this.run.bind(this));
+    runGenerator(this.#run.bind(this));
   }
-  *run() {
+  *#run() {
     this.#game.setComputerNumber(MakeBaseball.computerBaseball());
     while (true) {
       const ball = yield InputView.inputNumber;
@@ -27,17 +23,14 @@ class App {
       Console.print(this.#game.formatResult(result.result));
       if (result.isEnd) break;
     }
-    console.log("ENDEND");
-    runGenerator(this.isReStart.bind(this));
+    runGenerator(this.#isReStart.bind(this));
   }
-  *isReStart() {
+  *#isReStart() {
+    Console.print(GAME_STATE_MESSAGE.WIN);
     const command = yield InputView.inputRetry;
-    console.log(command, typeof command);
     if (command !== 1 && command !== 2) throw ERROR_MESSAGE.ONLY_ONE_TWO;
-    if (command === 1) runGenerator(this.run.bind(this));
-    if (command === 2) {
-      console.log("end");
-    }
+    if (command === 1) runGenerator(this.#run.bind(this));
+    if (command === 2) Console.close();
   }
 }
 

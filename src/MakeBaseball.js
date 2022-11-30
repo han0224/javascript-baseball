@@ -4,9 +4,7 @@ const { Random } = require("@woowacourse/mission-utils");
 const MakeBaseball = {
   userBaseball(number) {
     const baseball = new BaseballNumber();
-    console.log(number.split("").map(Number));
     baseball.setNumber(number.split("").map(Number));
-    console.log("userbaseball", baseball);
     return baseball;
   },
   computerBaseball() {

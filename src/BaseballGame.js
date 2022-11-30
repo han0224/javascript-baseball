@@ -9,13 +9,10 @@ class BaseballGame {
     this.#computerNumber = new BaseballNumber();
   }
   setComputerNumber(baseball) {
-    console.log("setcomputernumber", baseball.getNumber());
     this.#computerNumber = baseball;
   }
 
   compareUserAndComputer(userBaseball) {
-    console.log("user", userBaseball);
-    console.log("computer", this.#computerNumber);
     const user = userBaseball.getNumber();
     const computer = this.#computerNumber.getNumber();
     let strike = 0;

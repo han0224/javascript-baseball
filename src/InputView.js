@@ -9,7 +9,7 @@ const InputView = {
     });
   },
   inputRetry(callback) {
-    Console.readLine(GAME_STATE_MESSAGE.WIN, (number) => {
+    Console.readLine(GAME_STATE_MESSAGE.COMMAND, (number) => {
       callback(NumberUtils.returnNumber(number));
     });
   },
