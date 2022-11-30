@@ -1,17 +1,30 @@
 const MissionUtils = require("@woowacourse/mission-utils");
+const BaseballNumber = require("./BaseballNumber");
 const {
   GAME_STATE_MESSAGE,
   GAME_RESULT_MESSAGE,
   ERROR_MESSAGE,
 } = require("./Constants/Message");
+const InputView = require("./InputView");
+const runGenerator = require("./RunGenerator");
 const NumberUtils = require("./Utils/Number");
 
 class App {
   constructor() {
     this.NumberUtil = new NumberUtils();
     this.computerNumber = 0;
+    this.ttt = 0;
   }
 
+  play() {
+    MissionUtils.Console.print(GAME_STATE_MESSAGE.START);
+    runGenerator(this.run.bind(this));
+  }
+  *run() {
+    const ball = yield InputView.inputNumber;
+  }
+
+  /*********/
   userInputNumber() {
     MissionUtils.Console.readLine(GAME_STATE_MESSAGE.ENTER_NUMBER, (number) => {
       this.NumberUtil.isBaseballNumber(number);
@@ -63,10 +76,6 @@ class App {
   game() {
     this.computerNumber = this.NumberUtil.getRandomBaseballNumber();
     this.userInputNumber();
-  }
-  play() {
-    MissionUtils.Console.print(GAME_STATE_MESSAGE.START);
-    this.game();
   }
 }
 
