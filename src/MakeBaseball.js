@@ -1,4 +1,5 @@
 const BaseballNumber = require("./BaseballNumber");
+const { Random } = require("@woowacourse/mission-utils");
 
 const MakeBaseball = {
   userBaseball(number) {
@@ -14,7 +15,8 @@ const MakeBaseball = {
     while (computer.size < 3) {
       computer.add(Random.pickNumberInRange(1, 9));
     }
-    return baseball.setNumber(Array.from(computer));
+    baseball.setNumber(Array.from(computer));
+    return baseball;
   },
 };
 
