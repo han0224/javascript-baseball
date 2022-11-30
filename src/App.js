@@ -1,4 +1,4 @@
-const MissionUtils = require("@woowacourse/mission-utils");
+const { Console } = require("@woowacourse/mission-utils");
 const BaseballGame = require("./BaseballGame");
 const {
   GAME_STATE_MESSAGE,
@@ -16,7 +16,7 @@ class App {
   }
 
   play() {
-    MissionUtils.Console.print(GAME_STATE_MESSAGE.START);
+    Console.print(GAME_STATE_MESSAGE.START);
     runGenerator(this.run.bind(this));
   }
   *run() {
@@ -24,6 +24,7 @@ class App {
     while (true) {
       const ball = yield InputView.inputNumber;
       const result = this.#game.compareUserAndComputer(ball);
+      Console.print(this.#game.formatResult(result.result));
       if (result.isEnd) break;
     }
     console.log("ENDEND");

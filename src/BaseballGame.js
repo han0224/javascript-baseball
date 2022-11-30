@@ -1,5 +1,6 @@
-const { Random } = require("@woowacourse/mission-utils");
+const { Console } = require("@woowacourse/mission-utils");
 const BaseballNumber = require("./BaseballNumber");
+const { GAME_RESULT_MESSAGE } = require("./Constants/Message");
 
 // baseball 게임 관리 클래스
 class BaseballGame {
@@ -12,10 +13,6 @@ class BaseballGame {
     this.#computerNumber = baseball;
   }
 
-  /**
-   * 사용자가 입력한 숫자와 컴퓨터가 입력한 숫자를 비교하는 함수
-   * @return {BaseballNumber}
-   */
   compareUserAndComputer(userBaseball) {
     console.log("user", userBaseball);
     console.log("computer", this.#computerNumber);
@@ -31,9 +28,12 @@ class BaseballGame {
     return { isEnd: strike === 3, result: [strike, ball, strike + ball] };
   }
 
-  /**
-   * 숫자야구 게임 다시 시작하는 메서드
-   */
-  retry() {}
+  formatResult(result) {
+    const print = [];
+    if (result[1]) print.push(`${result[1]}${GAME_RESULT_MESSAGE.BALL}`);
+    if (result[0]) print.push(`${result[0]}${GAME_RESULT_MESSAGE.STRIKE}`);
+    if (print.length === 0) return GAME_RESULT_MESSAGE.NOTHING;
+    return print.join(" ");
+  }
 }
 module.exports = BaseballGame;
